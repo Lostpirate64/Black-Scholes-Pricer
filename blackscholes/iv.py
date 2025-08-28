@@ -5,7 +5,7 @@ from scipy.stats import norm
 from blackscholes.pricing import price_call, price_put  # from pricing.py
 
 def _vega(S, K, r, q, sigma, T):
-    """dPrice/dSigma (same for call/put under BS)."""
+    """dPrice/dSigma (same for call/put under BS)"""
     if sigma <= 0 or T <= 0:
         return 0.0
     vol_sqrtT = sigma * np.sqrt(T)
@@ -13,7 +13,7 @@ def _vega(S, K, r, q, sigma, T):
     return S * np.exp(-q * T) * norm.pdf(d1) * np.sqrt(T)
 
 def _price_bounds(S, K, r, q, T, kind):
-    """No-arbitrage BS bounds used for sanity checks."""
+    """no-arbitrage BS bounds used for sanity checks"""
     disc_K = K * np.exp(-r * T)
     disc_S = S * np.exp(-q * T)
     if kind == "call":
