@@ -95,3 +95,6 @@ def implied_vol_array(price, S, K, r, q, T, kind="call", **kwargs):
     for p_i, S_i, K_i, r_i, q_i, T_i, o_i in it:
         o_i[...] = implied_vol(float(p_i), float(S_i), float(K_i), float(r_i), float(q_i), float(T_i), kind=kind, **kwargs)
     return out
+
+
+832428395y
