@@ -1,3 +1,7 @@
+import sys, os
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+
+
 import streamlit as st
 import numpy as np
 from blackscholes.pricing import price_call, price_put
@@ -30,3 +34,17 @@ st.write(f"**Implied volatility:** {iv:.4f}" if not np.isnan(iv) else "No valid 
 st.subheader("Monte Carlo Validation")
 mc, err = mc_price(S, K, r, q, sigma, T, kind=kind, n_paths=100_000, seed=42)
 st.write(f"MC Price: {mc:.4f} ± {err:.4f}")
+
+import matplotlib.pyplot as plt
+
+st.subheader("Option Price vs Strike")
+
+Ks = np.linspace(0.5 * S, 1.5 * S, 50)
+prices = [price_call(S, K_, r, q, sigma, T) if kind == "call" else price_put(S, K_, r, q, sigma, T) for K_ in Ks]
+
+fig, ax = plt.subplots()
+ax.plot(Ks, prices)
+ax.set_xlabel("Strike")
+ax.set_ylabel("Option Price")
+ax.set_title(f"{kind.capitalize()} price vs Strike")
+st.pyplot(fig)
